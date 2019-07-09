@@ -1,0 +1,65 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+		<script>
+			var pictureLink;
+		
+			function describe() {
+				var $randomPictureId = Math.floor(Math.random() * 200) + 1;
+				fetch('https://pixabay.com/api/?key=7701663-a26ee9d1fce25b3e9eafcdea9&per_page=200&image_type=photo')
+			    .then(response => response.json())
+			    .then(data => {
+			    	console.log(data.hits)
+			    	$pictureLink = data["hits"][$randomPictureId]["webformatURL"];
+			        document.getElementById("output").innerHTML = "<img src='"+ $pictureLink +"' class='img-fluid'></img>";
+			    });
+			    document.getElementById("describe").innerHTML = '<span class="btn btn-dark btn-primary" onClick="send()">Go!</span>';
+			}
+			
+			function send() {
+				var req = {
+				    method: 'POST',
+				    url: 'http://ide.blank-42.de/server/test:3000',
+				    headers : {
+				        'Content-Type' : 'application/json'
+				    },
+				    data: JSON.stringify({ picture: $pictureLink })
+				};
+				console.log(req)
+			}
+		</script>
+		
+	</head>
+	<body>
+		<div class="container">
+			
+			<nav aria-label="breadcrumb">
+			  <ol class="breadcrumb">
+			    <li class="breadcrumb-item"><a href="#">#</a></li>
+			    <li class="breadcrumb-item"><a href="https://pixabay.com/">Pixabay</a></li>
+			    <li class="breadcrumb-item"><a href="https://github.com/valplusplusle/">GitHub</a></li>
+			  </ol>
+			</nav>
+
+			<div>
+				<span class="btn btn-dark btn-primary " onClick="describe()">describe</span>
+				<span class="btn btn-dark btn-primary " onClick="">find</span>
+			</div>
+			
+			
+			<div id="output"></div>
+			<div id="describe"></div>
+			
+		</div>
+	
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+	
+	</body>
+</html>
