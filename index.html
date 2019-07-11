@@ -7,29 +7,24 @@
 
 		<script>
 			var pictureLink;
+			
+			function randomNumber(maxNumber) {
+				return Math.floor(Math.random() * maxNumber) + 1;
+			}
 		
 			function describe() {
-				var $randomPictureId = Math.floor(Math.random() * 200) + 1;
 				fetch('https://pixabay.com/api/?key=7701663-a26ee9d1fce25b3e9eafcdea9&per_page=200&image_type=photo')
 			    .then(response => response.json())
 			    .then(data => {
-			    	console.log(data.hits)
-			    	$pictureLink = data["hits"][$randomPictureId]["webformatURL"];
+			    	$pictureLink = data["hits"][randomNumber(200)]["webformatURL"];
 			        document.getElementById("output").innerHTML = "<img src='"+ $pictureLink +"' class='img-fluid'></img>";
+			        send()
 			    });
-			    document.getElementById("describe").innerHTML = '<span class="btn btn-dark btn-primary" onClick="send()">Go!</span>';
+			    
 			}
 			
 			function send() {
-				var req = {
-				    method: 'POST',
-				    url: 'http://ide.blank-42.de/server/test:3000',
-				    headers : {
-				        'Content-Type' : 'application/json'
-				    },
-				    data: JSON.stringify({ picture: $pictureLink })
-				};
-				console.log(req)
+				document.getElementById("describe").innerHTML = '<form action="http://ide.blank-42.de:3000" method="post"> <label for="name">Describe:</label> <input type="text" id="text" name="text" /> <input type="text" id="picture" name="picture" value="'+$pictureLink+'"/> <input type="submit" value="GO!" /> <form>';
 			}
 		</script>
 		
