@@ -24,7 +24,7 @@
 			}
 			
 			function send() {
-				document.getElementById("describe").innerHTML = '<form action="http://ide.blank-42.de:3000" method="post"> <label for="name">Describe:</label> <input type="text" id="text" name="text" /> <input type="text" id="picture" name="picture" value="'+$pictureLink+'"/> <input type="submit" value="GO!" /> <form>';
+				document.getElementById("describe").innerHTML = '<form action="http://ide.blank-42.de:3000" method="post"> <label for="name">Describe:</label> <input type="text" id="text" name="text" /> <input type="text" id="picture" name="picture" value="'+$pictureLink+'"/> <input type="submit" value="GO!" onClick="describe()"/> <form>';
 			}
 		</script>
 		
