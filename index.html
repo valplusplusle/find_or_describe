@@ -4,7 +4,8 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		
 		<script>
 			var pictureLink;
 			
@@ -24,7 +25,17 @@
 			}
 			
 			function send() {
-				document.getElementById("describe").innerHTML = '<form action="http://ide.blank-42.de:3000" method="post"> <label for="name">Describe:</label> <input type="text" id="text" name="text" /> <input type="text" id="picture" name="picture" value="'+$pictureLink+'"/> <input type="submit" value="GO!" onClick="describe()"/> <form>';
+				document.getElementById("describe").innerHTML = '<form action="http://ide.blank-42.de:3000/send" method="post"> <label for="name">Describe:</label> <input type="text" id="text" maxlength="10" name="text" /> <input type="hidden" id="picture" name="picture" value="'+$pictureLink+'"/> <input type="submit" value="GO!" onClick="describe()"/> <form>';
+			}
+			
+			function getObject(){
+				fetch('http://ide.blank-42.de:3000/get')
+			    .then(response => response.json())
+			    .then(data => {
+			    	console.log(data);
+			        document.getElementById("output").innerHTML = "<div>"+ data["picture"] +"</div>";
+			        send()
+			    });
 			}
 		</script>
 		
@@ -42,7 +53,8 @@
 
 			<div>
 				<span class="btn btn-dark btn-primary " onClick="describe()">describe</span>
-				<span class="btn btn-dark btn-primary " onClick="">find</span>
+				<span class="btn btn-dark btn-primary " onClick="getObject()">find</span>
+
 			</div>
 			
 			
