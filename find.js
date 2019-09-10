@@ -4,6 +4,8 @@ function getObject(){
     .then(data => {
     	console.log(data);
         document.getElementById("output").innerHTML = "<img src='"+ data["picture"] +"' class='img-fluid'></img>";
+        document.getElementById("output").innerHTML += "<img src='"+ data["pictureWrong"] +"' class='img-fluid'></img>";
         document.getElementById("describe").innerHTML = data["text"];
+        rightLink = data["picture"];
     });
 }
