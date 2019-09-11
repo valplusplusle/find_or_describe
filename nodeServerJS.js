@@ -1,5 +1,4 @@
-var app = express();
-app.use(express.bodyParser());
+var express = require('express');
 var app = express();
 app.use(express.bodyParser());
 
@@ -13,29 +12,50 @@ let allowCrossDomain = function(req, res, next) {
 }
 app.use(allowCrossDomain);
 
-counterFileName = 0;
-
 app.post('/send', function (req, res) {
+
+  var fs = require("fs");
+  var counterFileName = 0;
+  const dir = './games/';
+
+  fs.readdir(dir, (err, files) => {
+    counterFileName = files.length;
+    console.log(files.length);
+    counterFileName = counterFileName - 1;	  
+    console.log(counterFileName);
+    
   test = JSON.stringify(req.body);
   console.log(test);      // your JSON
   const fs = require('fs');
-  fs.writeFile(counterFileName.toString(), test, function(err) {
+  fs.writeFile('./games/' + counterFileName.toString(), test, function(err) {
     if(err) {
         return console.log(err);
     }
 
     console.log("The file was saved!");
-    });
+    });  
     counterFileName = counterFileName + 1;
+    });
 });
 
 app.get('/get', function (req, res) {
-  randomObject = Math.floor(Math.random() * 5);
-  console.log(randomObject);
   var fs = require("fs");
-  fs.readFile(randomObject.toString(), function(err, buf) {
-        test=JSON.parse(buf.toString());
-        res.send(test);
+  var maxNumber = 0;
+  const dir = './games/';
+
+  fs.readdir(dir, (err, files) => {
+    maxNumber = files.length;
+    console.log(files.length);
+    maxNumber = maxNumber - 1;	  
+    console.log(maxNumber);
+  
+	
+  randomObject = Math.floor(Math.random() * maxNumber); 
+  console.log(randomObject);
+  fs.readFile('./games/' + randomObject.toString(), function(err, buf) {
+	test=JSON.parse(buf.toString());
+	res.send(test);
+  });
   });
 });
 
