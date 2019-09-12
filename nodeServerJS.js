@@ -20,22 +20,16 @@ app.post('/send', function (req, res) {
 
   fs.readdir(dir, (err, files) => {
     counterFileName = files.length;
-    console.log(files.length);
-    counterFileName = counterFileName - 1;	  
-    console.log(counterFileName);
-    
-  test = JSON.stringify(req.body);
-  console.log(test);      // your JSON
-  const fs = require('fs');
-  fs.writeFile('./games/' + counterFileName.toString(), test, function(err) {
-    if(err) {
+    test = JSON.stringify(req.body);
+    const fs = require('fs');
+    fs.writeFile('./games/' + counterFileName.toString(), test, function(err) {
+      if(err) {
         return console.log(err);
-    }
-
+      }
     console.log("The file was saved!");
-    });  
-    counterFileName = counterFileName + 1;
-    });
+  });
+  counterFileName = counterFileName + 1;
+  });
 });
 
 app.get('/get', function (req, res) {
@@ -44,26 +38,21 @@ app.get('/get', function (req, res) {
   const dir = './games/';
 
   fs.readdir(dir, (err, files) => {
-    maxNumber = files.length;
-    console.log(files.length);
-    maxNumber = maxNumber - 1;	  
-    console.log(maxNumber);
-  
-	
-  randomObject = Math.floor(Math.random() * maxNumber); 
-  console.log(randomObject);
-  fs.readFile('./games/' + randomObject.toString(), function(err, buf) {
-	test=JSON.parse(buf.toString());
-	res.send(test);
-  });
+    maxNumber = files.length -1;
+    randomObject = Math.floor(Math.random() * maxNumber);
+    console.log(randomObject);
+    fs.readFile('./games/' + randomObject.toString(), function(err, buf) {
+      test=JSON.parse(buf.toString());
+      res.send(test);
+    });
   });
 });
 
 https.createServer({
-  key: fs.readFileSync('key.pem'),
-  cert: fs.readFileSync('cert.pem')
+  key: fs.readFileSync('Link/To/Key'),
+  cert: fs.readFileSync('Link/To/Cert')
 }, app)
+.listen(3000, function () {
+  console.log('Example app listening on port 3000! Go to https://localhost:3000/')
+})
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
-});
