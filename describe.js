@@ -10,12 +10,12 @@ function describe() {
     .then(data => {
     	$pictureLink = data["hits"][randomNumber(200)]["webformatURL"];
     	$wrongPictureLink = data["hits"][randomNumber(200)]["webformatURL"];
-        document.getElementById("output").innerHTML = "<img src='"+ $pictureLink +"' class='img-fluid'></img>";
+        document.getElementById("output").innerHTML = "<img src='"+ $pictureLink +"' class='img-fluid rounded mx-auto d-block'></img>";
         send()
     });
     
 }
 
 function send() {
-	document.getElementById("describe").innerHTML = '<form action="http://ide.blank-42.de:3000/send" method="post"> <label for="name">Describe:</label> <input type="text" id="text" maxlength="10" name="text" /> <input type="hidden" id="picture" name="picture" value="'+$pictureLink+'"/> <input type="hidden" id="pictureWrong" name="pictureWrong" value="'+$wrongPictureLink+'"/> <input type="submit" value="GO!" onClick="describe()"/> <form>';
+	document.getElementById("describe").innerHTML = '<form onSubmit="window.location.reload()" action="http://ide.blank-42.de:3000/send" method="post" class="d-flex justify-content-center"> <label for="name">Describe:</label> <input type="text" id="text" maxlength="10" name="text" /> <input type="hidden" id="picture" name="picture" value="'+$pictureLink+'"/> <input type="hidden" id="pictureWrong" name="pictureWrong" value="'+$wrongPictureLink+'"/> <input type="submit" value="GO!" onClick="describe()"/> <form>';
 }
