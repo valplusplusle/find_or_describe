@@ -31,10 +31,10 @@ function getObject() {
 
 function check(link) {
 	if(link == rightLink){
-		document.getElementById("output").innerHTML = "<div>Juhuuu!</div>";
+		document.getElementById("output").innerHTML = "<div class='alert alert-primary d-flex justify-content-center alert alert-success' role='alert'>Juhuuu!</div>";
 	}
 	else {
-		document.getElementById("output").innerHTML = "<div>Bad Luck...</div>"
+		document.getElementById("output").innerHTML = "<div class='alert alert-primary d-flex justify-content-center alert alert-danger' role='alert'>Bad Luck...</div>"
 	}
 
 }
